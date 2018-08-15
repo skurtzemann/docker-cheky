@@ -16,3 +16,9 @@ jobs:
             export DOCKER_IMAGE_TAG=$(cat VERSION)
             docker build --no-cache -t "${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}" .
             docker images
+workflows:
+  version: 2
+  default:
+    jobs:
+      - build:
+          context: sk-docker-hub
