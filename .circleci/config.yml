@@ -7,10 +7,12 @@ jobs:
       - image: docker:18.06.0-ce-git
     environment:
       DOCKER_IMAGE: cheky
-      DOCKER_IMAGE_TAG: 4.1-1
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: Build image
-          command: docker build --no-cache -t "${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}" .
+          command: |
+            export DOCKER_IMAGE_TAG=$(cat VERSION)
+            docker build --no-cache -t "${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}" .
+            docker images
